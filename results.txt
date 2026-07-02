@@ -1,0 +1,81 @@
+Using Gemini embeddings (gemini-embedding-001)...
+
+Embedding 10 passages...
+Passage matrix shape: (10, 3072)
+
+Embedding 5 queries (4 required + 1 stretch)...
+
+======================================================================
+RESULTS
+======================================================================
+
+Query: "my laptop won't switch on"
+  1. [0.6638] (kb-02 / handbook.md) To power up a device that won't turn on, hold the power button for ten seconds, then conne...
+  2. [0.5907] (kb-09 / it.md) Company laptops back up automatically to the cloud every night at 2am while connected to t...
+  3. [0.5247] (kb-07 / it.md) Reset your password from the login screen by clicking 'Forgot password'. A reset link is e...
+
+Query: "how do I stop being billed every month?"
+  1. [0.6915] (kb-05 / policy.md) To cancel your subscription, open Account Settings and choose End Plan. Cancellation takes...
+  2. [0.5838] (kb-04 / policy.md) Our refund policy allows a full refund within 30 days of purchase, provided the item is un...
+  3. [0.5537] (kb-06 / policy.md) Premium plan members get priority support, with a guaranteed first response within four bu...
+
+Query: "access denied error when saving a file"
+  1. [0.7584] (kb-08 / it.md) The error code 0x80070005 means 'access denied'. Run the application as administrator, or...
+  2. [0.5506] (kb-01 / handbook.md) Employees may park in lot B after 6pm on weekdays. Lot A is reserved for visitors during b...
+  3. [0.5352] (kb-09 / it.md) Company laptops back up automatically to the cloud every night at 2am while connected to t...
+
+Query: "where do I leave my car in the evening?"
+  1. [0.7061] (kb-01 / handbook.md) Employees may park in lot B after 6pm on weekdays. Lot A is reserved for visitors during b...
+  2. [0.5848] (kb-09 / it.md) Company laptops back up automatically to the cloud every night at 2am while connected to t...
+  3. [0.5446] (kb-03 / handbook.md) Annual leave must be requested at least two weeks in advance through the HR portal. Unused...
+
+Query: "what's the wifi password?"
+  1. [0.5903] (kb-01 / handbook.md) Employees may park in lot B after 6pm on weekdays. Lot A is reserved for visitors during b...
+  2. [0.5846] (kb-07 / it.md) Reset your password from the login screen by clicking 'Forgot password'. A reset link is e...
+  3. [0.5559] (kb-10 / facilities.md) The office kitchen is restocked every Monday and Thursday. Please label personal items in...
+
+======================================================================
+REFLECTION
+======================================================================
+
+For each required query, the best match shares few or no literal words
+with the query text, yet it is topically correct:
+
+1. "my laptop won't switch on"
+   -> best match is the "power up a device that won't turn on" passage
+      (kb-02). No shared content words ("laptop"/"device", "switch
+      on"/"turn on") - the embedding captured the *intent* (a dead
+      device needing a power-cycle), not surface vocabulary.
+
+2. "how do I stop being billed every month?"
+   -> best match is the subscription cancellation passage (kb-05).
+      "billed every month" and "cancel your subscription" share no
+      words, but both describe recurring charges and how to end them.
+
+3. "access denied error when saving a file"
+   -> best match is the 0x80070005 / "access denied" passage (kb-08).
+      This one does share the phrase "access denied", so it's the
+      query with the most literal overlap - but the embedding still
+      needed to connect "saving a file" to "write permission" and
+      "run as administrator".
+
+4. "where do I leave my car in the evening?"
+   -> best match is the parking-lot passage (kb-01). "leave my car"
+      vs. "park", and "evening" vs. "after 6pm" - again, essentially
+      no shared vocabulary, just shared meaning.
+
+What this shows: cosine similarity over embeddings is retrieving by
+*meaning*, not by keyword overlap - a hand-written dot product is
+enough to surface the right passage even when the query and the
+passage barely share a word.
+
+Optional stretch:
+   The query "what's the wifi password?" isn't covered by the
+   knowledge base at all. Its top cosine score is 0.5903 
+   which is noticeably lower than the top scores for the four
+   on-topic queries above. In a real system you could pick a
+   similarity threshold (e.g. anything below ~0.35-0.4 with this
+   local model) below which you tell the user "we don't have an
+   answer for that" instead of confidently returning a wrong
+   passage - trading recall for precision on out-of-domain queries.
+

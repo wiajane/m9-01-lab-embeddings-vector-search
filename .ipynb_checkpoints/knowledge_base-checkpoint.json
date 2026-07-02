@@ -1,0 +1,12 @@
+[
+  { "id": "kb-01", "source": "handbook.md", "text": "Employees may park in lot B after 6pm on weekdays. Lot A is reserved for visitors during business hours and requires a pass from reception." },
+  { "id": "kb-02", "source": "handbook.md", "text": "To power up a device that won't turn on, hold the power button for ten seconds, then connect the charger and wait two minutes before trying again." },
+  { "id": "kb-03", "source": "handbook.md", "text": "Annual leave must be requested at least two weeks in advance through the HR portal. Unused leave does not roll over past the end of the calendar year." },
+  { "id": "kb-04", "source": "policy.md", "text": "Our refund policy allows a full refund within 30 days of purchase, provided the item is unused and in its original packaging. After 30 days, only store credit is offered." },
+  { "id": "kb-05", "source": "policy.md", "text": "To cancel your subscription, open Account Settings and choose End Plan. Cancellation takes effect at the end of the current billing period; no partial refunds are given for the remaining days." },
+  { "id": "kb-06", "source": "policy.md", "text": "Premium plan members get priority support, with a guaranteed first response within four business hours. Standard members receive a response within two business days." },
+  { "id": "kb-07", "source": "it.md", "text": "Reset your password from the login screen by clicking 'Forgot password'. A reset link is emailed to your registered address and expires after one hour for security." },
+  { "id": "kb-08", "source": "it.md", "text": "The error code 0x80070005 means 'access denied'. Run the application as administrator, or ask IT to grant your account write permission to the target folder." },
+  { "id": "kb-09", "source": "it.md", "text": "Company laptops back up automatically to the cloud every night at 2am while connected to the office network. Files in the Desktop and Documents folders are included; external drives are not." },
+  { "id": "kb-10", "source": "facilities.md", "text": "The office kitchen is restocked every Monday and Thursday. Please label personal items in the fridge; unlabelled food is cleared out each Friday evening." }
+]
